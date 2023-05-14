@@ -1,26 +1,33 @@
 {
-    "name": "My Extension",
+    "name": "AutoFill Extension",
     "version": "1.0",
     "manifest_version": 3,
-    "description": "Automatically fills in login/signup forms",
+    "description": "Automatically fill credentials in login/signup forms",
     "permissions": [
         "tabs",
-        "storage",
-        "scripting"
+        "activeTab",
+        "scripting",
+        "webNavigation"
+    ],
+    "host_permissions": [
+        "*://*/*"
     ],
     "content_scripts": [
         {
             "matches": [
-                "http://*/*",
-                "https://*/*"
+                "<all_urls>"
             ],
+            "run_at": "document_end",
+            "all_frames": true,
             "js": [
                 "content.js"
-            ],
-            "run_at": "document_end"
+            ]
         }
     ],
     "action": {
         "default_popup": "popup.html"
+    },
+    "background": {
+        "service_worker": "background.js"
     }
 }
