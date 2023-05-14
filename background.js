@@ -6,7 +6,7 @@ chrome.webNavigation.onCompleted.addListener(({ tabId, frameId }) => {
         target: { tabId },
         function: fillingPassword,
     })
-})
+})``
 
 const fillingPassword = async () => {
     let inputs = Array.from(document.getElementsByTagName("input"));
