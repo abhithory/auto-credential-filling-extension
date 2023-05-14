@@ -1,0 +1,26 @@
+{
+    "name": "My Extension",
+    "version": "1.0",
+    "manifest_version": 3,
+    "description": "Automatically fills in login/signup forms",
+    "permissions": [
+        "tabs",
+        "storage",
+        "scripting"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "js": [
+                "content.js"
+            ],
+            "run_at": "document_end"
+        }
+    ],
+    "action": {
+        "default_popup": "popup.html"
+    }
+}
