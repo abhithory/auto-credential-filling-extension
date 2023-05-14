@@ -4,24 +4,54 @@ chrome.webNavigation.onCompleted.addListener(({ tabId, frameId }) => {
     if (frameId !== 0) return;
     chrome.scripting.executeScript({
         target: { tabId },
-        function: fillingPassword,
+        function: fillingPassword
     })
-})``
+})
 
 const fillingPassword = async () => {
-    let inputs = Array.from(document.getElementsByTagName("input"));
-    const inputsOnlyPass = document.querySelectorAll('input[type="password"]')[0];
-    const indexOfIt = inputs.indexOf(inputsOnlyPass)
-    console.log(indexOfIt);
-    const inputsOnlyEmail = inputs[indexOfIt - 1];
+
+    try {
+        console.log("website url", location.href);
+        const emailToFill = "thisisemail@gmail.com"
+        const passToFill = "this is password"
+
+        let inputs = Array.from(document.getElementsByTagName("input"));
+        const inputsOnlyPass = document.querySelectorAll('input[type="password"]')[0];
+        const relatedForm = inputsOnlyPass.closest('form');
+
+        console.log(relatedForm);
 
 
-    console.log(inputs);
-    console.log(inputsOnlyPass);
-    console.log(inputsOnlyEmail);
+        let inputsOnlyEmail;
+        const indexOfPassField = inputs.indexOf(inputsOnlyPass);
+        if (indexOfPassField > 0) {
+            inputsOnlyEmail = inputs[indexOfPassField - 1];
+            inputsOnlyEmail.value = emailToFill;
+        }
+        savingPassword(relatedForm, inputsOnlyEmail.name, inputsOnlyPass.name)
 
-    inputsOnlyPass.value = "passsssss"
-    inputsOnlyEmail.value = "99885522"
+        inputsOnlyPass.value = passToFill;
+    } catch (error) {
+        console.log("error", error);
+    }
+
+    function savingPassword(_form, _emailId, _passId) {
+
+        console.log(_emailId);
+        _form.addEventListener("submit", function (e) {
+            // e.preventDefault()
+            try {
+                console.log(_form.elements[_emailId].value);
+                console.log(_form.elements[_passId].value);
 
 
+                alert("go")
+                // chrome.extension.sendRequest({ 'name': 'form_submit', 'data': data }, function () { /* callback from request */ }, false);
+            } catch (error) {
+                console.log("error", error);
+            }
+        });
+    }
 }
+
+
