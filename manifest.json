@@ -20,7 +20,7 @@
             "run_at": "document_end",
             "all_frames": true,
             "js": [
-                "content.js"
+                "contentScript.js"
             ]
         }
     ],

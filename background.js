@@ -11,6 +11,8 @@ chrome.webNavigation.onCompleted.addListener(({ tabId, frameId }) => {
 const fillingPassword = async () => {
 
     try {
+
+        //  use chrome .includes here both sides
         console.log("website url", location.href);
         const emailToFill = "thisisemail@gmail.com"
         const passToFill = "this is password"
